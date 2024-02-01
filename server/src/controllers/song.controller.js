@@ -54,4 +54,12 @@ const getSong = asyncWrapper(async (req, res) => {
     res.status(200).json(new ApiResonse(200, song));
 });
 
-export { uploadSong, getSong };
+const getAllSongs = asyncWrapper(async (req, res) => {
+    const songs = await Song.find({});
+    if (!songs) {
+        throw new ApiError(404, "Song list is empty");
+    }
+    res.status(200).json(new ApiResonse(200, songs));
+});
+
+export { uploadSong, getSong, getAllSongs };
