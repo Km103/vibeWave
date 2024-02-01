@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useState } from "react";
+import Loading from "../components/Loading";
 
 function Upload() {
     const {
@@ -11,8 +12,11 @@ function Upload() {
     } = useForm();
 
     const [success, setSuccess] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const onSubmit = (data) => {
+        setSuccess(false);
+        setLoading(true);
         const formData = new FormData();
         formData.append("name", data.name);
         formData.append("singer", data.singer);
@@ -21,10 +25,12 @@ function Upload() {
         axios
             .post("http://localhost:8000/api/v1/song/upload", formData)
             .then((res) => {
+                setLoading(false);
                 setSuccess(true);
                 console.log(res);
             })
             .catch((err) => {
+                setLoading(false);
                 setError("apiError", {
                     type: "manual",
                     message: "An Error Occured while Submitting the form",
@@ -113,6 +119,7 @@ function Upload() {
                     >
                         Upload
                     </button>
+                    {loading && <Loading />}
                     {success && (
                         <div className="text-2xl text-violet-700 text-center rounded-e-sm">
                             Upload successfull!

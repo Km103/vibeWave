@@ -1,26 +1,35 @@
-import React from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import PlayCard from "../components/PlayCard";
+import { Link } from "react-router-dom";
+import Player from "../components/Player";
 
 function Play() {
-    const getSongs = () => {
+    const [songs, setSongs] = useState([]);
+    useEffect(() => {
         axios
             .get("http://localhost:8000/api/v1/song")
+            //  .then((response) => response.json())
             .then((response) => {
-                console.log(response);
-                return response;
+                setSongs(response.data.data);
+                console.log(response.data.data);
             })
             .catch((err) => {
                 console.log(err);
             });
-    };
+    }, []);
 
     return (
-        <section>
-            <h1 className="text-xl text-blue-600 flex justify-center h-full w-full p-48 flex-col ">
-                Hi here the songs will be played:
-                {getSongs}
-            </h1>
-        </section>
+        <div className="w-screen h-full min-h-screen bg-auto bg-gray-900">
+            <div className="text-5xl text-center py-8 font-semibold text-white">
+                List of all Songs
+            </div>
+            <div className="text-xl text-blue-600 flex justify-center items-center flex-col">
+                {songs.map((song) => (
+                    <Player track={song.track} name={song.name} />
+                ))}
+            </div>
+        </div>
     );
 }
 
