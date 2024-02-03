@@ -5,7 +5,7 @@ import { User } from "../models/user.models.js";
 
 const generateAccessAndRefreshTokens = async (userId) => {
     try {
-        const user = User.findById(userId);
+        const user = await User.findById(userId);
         const accessToken = await user.generateAccessToken();
         const refreshToken = await user.generateRefreshToken();
         user.refreshToken = refreshToken;
@@ -42,13 +42,53 @@ const registerUser = asyncWrapper(async (req, res) => {
             "Something went wrong while registering the user "
         );
     }
-
+    const createdUser = await User.findById(user._id).select(
+        "-password -refreshToken "
+    );
     res.status(200).json(
-        new ApiResonse(201, newUser, "User created Successfully")
+        new ApiResonse(201, createdUser, "User created Successfully")
     );
 });
 
-const loginUser = asyncWrapper(async (req, res) => {});
+const loginUser = asyncWrapper(async (req, res) => {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email: email });
+
+    if (!(password || email)) {
+        throw new ApiError(400, "Username or password is required");
+    }
+
+    if (!user) {
+        throw new ApiError(400, "User does not exist ");
+    }
+
+    const isPasswordValid = user.isPasswordCorrect(password);
+
+    if (!isPasswordValid) {
+        throw new ApiError(401, "Invalid user credentials");
+    }
+
+    const { accessToken, refreshToken } = generateAccessAndRefreshTokens(
+        user._id
+    );
+
+    const loggedInUser = await User.findById(user._id).select(
+        "-password -refreshToken"
+    );
+
+    const options = {
+        httpOnly: true,
+        secure: true,
+    };
+
+    return res
+        .status(200)
+        .cookie("access token", accessToken)
+        .cookie("refresh token", refreshToken)
+        .json(
+            new ApiResonse(200, loggedInUser, "User loggind in Successfully")
+        );
+});
 
 const logoutUser = () => {};
 
