@@ -3,14 +3,23 @@ import ApiError from "../utils/ApiError.js";
 import ApiResonse from "../utils/ApiResponse.js";
 import { User } from "../models/user.models.js";
 
-const registerUser = asyncWrapper(async (req, res) => {
-    const [firstName, lastName, email, password] = req.body;
+const generateAccessAndRefreshTokens = async (userId) => {
+    try {
+        const user = User.findById(userId);
+        const accessToken = await user.generateAccessToken();
+        const refreshToken = await user.generateRefreshToken();
+        user.refreshToken = refreshToken;
+        await user.save({ validateBeforeSave: false });
+        return { accessToken, refreshToken };
+    } catch (error) {
+        throw new ApiError(500, "Something went wrong while generating tokens");
+    }
+};
 
-    if (
-        [firstName, lastName, email, password].some(
-            (field) => field?.trim() === ""
-        )
-    ) {
+const registerUser = asyncWrapper(async (req, res) => {
+    const { firstName, lastName, email, password } = req.body;
+
+    if ([firstName, email, password].some((field) => field?.trim() === "")) {
         throw new ApiError(400, "All fields are required");
     }
 
@@ -20,14 +29,26 @@ const registerUser = asyncWrapper(async (req, res) => {
         throw new ApiError(403, "User Alreasdy Exists");
     }
 
-    const newUser = User.create(firstName, lastName, email, password);
+    const newUser = await User.create({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+    });
+
+    if (!newUser) {
+        throw new ApiError(
+            500,
+            "Something went wrong while registering the user "
+        );
+    }
 
     res.status(200).json(
         new ApiResonse(201, newUser, "User created Successfully")
     );
 });
 
-const loginUser = () => {};
+const loginUser = asyncWrapper(async (req, res) => {});
 
 const logoutUser = () => {};
 
