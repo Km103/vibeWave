@@ -1,7 +1,8 @@
 import asyncWrapper from "../utils/asyncWrapper.js";
 import ApiError from "../utils/ApiError.js";
-import ApiResonse from "../utils/ApiResponse.js";
+import ApiResponse from "../utils/ApiResponse.js";
 import { User } from "../models/user.models.js";
+import jwt from "jsonwebtoken";
 
 const generateAccessAndRefreshTokens = async (userId) => {
     try {
@@ -46,7 +47,7 @@ const registerUser = asyncWrapper(async (req, res) => {
         "-password -refreshToken "
     );
     res.status(200).json(
-        new ApiResonse(201, createdUser, "User created Successfully")
+        new ApiResponse(201, createdUser, "User created Successfully")
     );
 });
 
@@ -86,7 +87,7 @@ const loginUser = asyncWrapper(async (req, res) => {
         .cookie("accessToken", accessToken, options)
         .cookie("refreshToken", refreshToken, options)
         .json(
-            new ApiResonse(200, loggedInUser, "User loggind in Successfully")
+            new ApiResponse(200, loggedInUser, "User loggind in Successfully")
         );
 });
 
@@ -150,13 +151,7 @@ const refreshAccessToken = asyncWrapper(async (req, res) => {
             .status(200)
             .cookie("accessToken", accessToken, options)
             .cookie("refreshToken", newRefreshToken, options)
-            .json(
-                new ApiResponse(
-                    200,
-                    { accessToken, refreshToken: newRefreshToken },
-                    "Access token refreshed"
-                )
-            );
+            .json(new ApiResponse(200, {}, "Access token refreshed"));
     } catch (error) {
         throw new ApiError(401, error?.message || "Invalid refresh token");
     }
