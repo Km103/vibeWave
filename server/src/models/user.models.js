@@ -34,6 +34,9 @@ const userSchema = new Schema(
                 ref: "Song",
             },
         ],
+        role:{
+            
+        }
     },
     {
         timestamps: true,

@@ -1,5 +1,13 @@
+import { Outlet } from "react-router-dom";
+import Header from "./components/Header";
+
 function Layout() {
-    return <h1>Login to upload the song</h1>;
+    return (
+        <>
+            <Header />
+            <Outlet />
+        </>
+    );
 }
 
 export default Layout;
