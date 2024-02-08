@@ -43,7 +43,7 @@ const registerUser = asyncWrapper(async (req, res) => {
             "Something went wrong while registering the user "
         );
     }
-    const createdUser = await User.findById(user._id).select(
+    const createdUser = await User.findById(newUser._id).select(
         "-password -refreshToken "
     );
     res.status(200).json(
@@ -157,13 +157,71 @@ const refreshAccessToken = asyncWrapper(async (req, res) => {
     }
 });
 
-const changePassword = () => {};
+const changePassword = asyncWrapper(async (req, res) => {
+    const user = await User.findById(req.user._id);
+    const { oldPassword, newPassword } = req.body;
+    const validation = user.isPasswordCorrect(oldPassword);
+    if (!validation) {
+        throw new ApiError(401, "Invalid password");
+    }
+    const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
+        await generateAccessAndRefreshTokens(user._id);
 
-const getUser = () => {};
+    user.password = newPassword;
+    user.refreshToken = newRefreshToken;
+    await user.save();
+    const changedUser = await User.findById(user._id).select(
+        "-password -refreshToken"
+    );
 
-const getAllUsers = () => {};
+    const options = {
+        httpOnly: true,
+        secure: true,
+    };
 
-const deleteUserAccount = () => {};
+    res.status(200)
+        .cookie("accessToken", newAccessToken, options)
+        .cookie("refreshToken", newRefreshToken, options)
+        .json(
+            new ApiResponse(200, changedUser, "Password changed successfully")
+        );
+});
+
+const getUser = asyncWrapper(async (req, res) => {
+    const user = await User.findById(req.params.ID).select(
+        "-password -refreshToken"
+    );
+    console.log();
+    if (!user) {
+        throw new ApiError(403, "User does not exist");
+    }
+
+    res.status(200).json(
+        new ApiResponse(200, user, "user fetched successfully")
+    );
+});
+
+const getAllUsers = asyncWrapper(async (req, res) => {
+    const users = await User.find({});
+
+    res.status(200).json(
+        new ApiResponse(200, users, "All users fetched Successfully")
+    );
+});
+
+const deleteUserAccount = asyncWrapper(async (req, res) => {
+    await User.deleteOne(req.body._id);
+
+    const options = {
+        httpOnly: true,
+        secure: true,
+    };
+    return res
+        .status(200)
+        .clearCookie("accessToken", options)
+        .clearCookie("refreshToken", options)
+        .json(new ApiResponse(200, {}, "User deleted Successfully "));
+});
 
 const getSongsHistory = () => {};
 

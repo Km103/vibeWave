@@ -34,9 +34,10 @@ const userSchema = new Schema(
                 ref: "Song",
             },
         ],
-        role:{
-            
-        }
+        role: {
+            type: String,
+            default: "user",
+        },
     },
     {
         timestamps: true,
