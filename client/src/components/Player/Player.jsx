@@ -30,6 +30,16 @@ function Player({
         audioElem.current.currentTime = 0;
     };
 
+    const skipForward = () => {
+        const index = songs.findIndex((x) => x.name == currentSong.name);
+        if (index == songs.length - 1) {
+            setCurrentSong(songs[0]);
+        } else {
+            setCurrentSong(songs[index + 1]);
+        }
+        audioElem.current.currentTime = 0;
+    };
+
     return (
         <div className="flex justify-center ">
             <BiSkipPrevious
@@ -49,7 +59,10 @@ function Player({
                 />
             )}
 
-            <BiSkipNext className="text-5xl text-white cursor-pointer" />
+            <BiSkipNext
+                className="text-5xl text-white cursor-pointer"
+                onClick={skipForward}
+            />
         </div>
     );
 }
