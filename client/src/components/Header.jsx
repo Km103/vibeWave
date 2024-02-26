@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 const Header = () => {
     return (
-        <header className="dark-theme py-8 sticky top-0 bg-black px-12 border-b-2  border-gray-800 text-primary-foreground ">
+        <header className="dark-theme py-8 sticky  top-0 bg-black px-12 border-b-2  border-gray-800 text-primary-foreground ">
             <nav className="flex items-center justify-between">
                 <div className="text-white text-2xl ml-12 font-medium">
                     VibeWave

@@ -23,6 +23,9 @@ const songSchema = new Schema(
         album: {
             type: String,
         },
+        duration: {
+            type: Number,
+        },
 
         albumPhoto: {
             type: String,

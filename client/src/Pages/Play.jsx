@@ -68,7 +68,7 @@ function Play() {
             {songs.map(function (song) {
                 return (
                     <li
-                        className="text-white text-xl text-center py-4
+                        className="text-white flex flex-col text-xl text-center py-4
                         hover:bg-gray-800 cursor-pointer  border-b-2 border-gray-600
                     "
                         key={song._id}
@@ -84,7 +84,7 @@ function Play() {
             {currentSong && (
                 <div
                     className="text-xl flex w-full border-gray-600 border-y-2
-                     bg-[#212121] h-24 px-12 justify-evenly items-center  flex-row fixed bottom-0 mt-items-center"
+                     bg-[#212121] h-24 px-12  justify-evenly items-center  flex-row fixed bottom-0 mt-items-center"
                 >
                     <audio
                         src={currentSong?.track}

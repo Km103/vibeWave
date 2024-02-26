@@ -1,0 +1,60 @@
+{
+    "id": "qZtKBMZ_",
+    "name": "Apna Bana Le",
+    "type": "",
+    "album": {
+        "id": "38682222",
+        "name": "Bhediya",
+        "url": "https://www.jiosaavn.com/album/bhediya/wSM2AOubajk_"
+    },
+    "year": "2023",
+    "releaseDate": null,
+    "duration": "261",
+    "label": "Zee Music Co.",
+    "primaryArtists": "Sachin-Jigar, Arijit Singh",
+    "primaryArtistsId": "461968, 459320",
+    "featuredArtists": "",
+    "featuredArtistsId": "",
+    "explicitContent": 0,
+    "playCount": "134660237",
+    "language": "hindi",
+    "hasLyrics": "true",
+    "url": "https://www.jiosaavn.com/song/apna-bana-le/ATIfejZ9bWw",
+    "copyright": "© 2023 Zee Music Company",
+    "image": [
+        {
+            "quality": "50x50",
+            "link": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-50x50.jpg"
+        },
+        {
+            "quality": "150x150",
+            "link": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-150x150.jpg"
+        },
+        {
+            "quality": "500x500",
+            "link": "https://c.saavncdn.com/815/Bhediya-Hindi-2023-20230927155213-500x500.jpg"
+        }
+    ],
+    "downloadUrl": [
+        {
+            "quality": "12kbps",
+            "link": "https://aac.saavncdn.com/815/483a6e118e8108cbb3e5cd8701674f32_12.mp4"
+        },
+        {
+            "quality": "48kbps",
+            "link": "https://aac.saavncdn.com/815/483a6e118e8108cbb3e5cd8701674f32_48.mp4"
+        },
+        {
+            "quality": "96kbps",
+            "link": "https://aac.saavncdn.com/815/483a6e118e8108cbb3e5cd8701674f32_96.mp4"
+        },
+        {
+            "quality": "160kbps",
+            "link": "https://aac.saavncdn.com/815/483a6e118e8108cbb3e5cd8701674f32_160.mp4"
+        },
+        {
+            "quality": "320kbps",
+            "link": "https://aac.saavncdn.com/815/483a6e118e8108cbb3e5cd8701674f32_320.mp4"
+        }
+    ]
+}
