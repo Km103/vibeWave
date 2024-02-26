@@ -1,7 +1,7 @@
 export const SongQuery = async (query, page = 1, limit = 10) => {
     try {
         const response = await fetch(
-            `https://saavn.dev/search/songs?query=${query}&page=${page}&limit=${limit}`,
+            `${process.env.SONGS_URL}/search/songs?query=${query}&page=${page}&limit=${limit}`,
             {
                 method: "GET",
                 headers: {

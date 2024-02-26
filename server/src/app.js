@@ -18,7 +18,9 @@ app.use(cookieParser());
 
 import songRoutes from "./routes/song.routes.js";
 import userRoutes from "./routes/user.routes.js";
+import searchRoutes from "./routes/search.routes.js";
 app.use("/api/v1/song", songRoutes);
 app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/search", searchRoutes);
 
 export { app };

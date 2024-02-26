@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-
+import mongoosePaginate from "mongoose-paginate-v2";
 const songSchema = new Schema(
     {
         name: {
@@ -24,14 +24,15 @@ const songSchema = new Schema(
         image: {
             type: String,
         },
-        album: {
-            type: Schema.Types.ObjectId,
-            ref: "Album",
-        },
+        // album: {
+        //     type: Schema.Types.ObjectId,
+        //     ref: "Album",
+        // },
     },
     {
         timestamps: true,
     }
 );
 
+songSchema.plugin(mongoosePaginate);
 export const Song = mongoose.model("Song", songSchema);

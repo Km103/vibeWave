@@ -10,11 +10,10 @@ function Play() {
     const [currentSong, setCurrentSong] = useState({});
     const [isPlaying, setIsPlaying] = useState(false);
     const audioElem = useRef(null);
-
     const progressRef = useRef(null);
 
     useEffect(() => {
-        getAllSongs().then((data) => {
+        getAllSongs(100, 100).then((data) => {
             setSongs(data);
             setCurrentSong(data[2]);
         });
@@ -58,7 +57,7 @@ function Play() {
 
     return (
         <div
-            className="w-screen h-screen  bg-black flex flex-col 
+            className="w-screen min-h-screen h-full bg-black flex flex-col 
             "
         >
             <div className="text-3xl py-4 font-medium  text-white text-center">
