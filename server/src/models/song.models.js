@@ -15,20 +15,18 @@ const songSchema = new Schema(
             type: String,
             required: true,
         },
-        Tags: [
-            {
-                type: String,
-            },
-        ],
-        album: {
-            type: String,
-        },
         duration: {
             type: Number,
         },
-
-        albumPhoto: {
+        language: {
             type: String,
+        },
+        image: {
+            type: String,
+        },
+        album: {
+            type: Schema.Types.ObjectId,
+            ref: "Album",
         },
     },
     {
