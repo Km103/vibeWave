@@ -4,7 +4,6 @@ import PlayCard from "../components/PlayCard";
 import { Link } from "react-router-dom";
 import { getAllSongs } from "@/services/SongsService";
 import Player from "../components/Player/Player";
-import { set } from "react-hook-form";
 
 function Play() {
     const [songs, setSongs] = useState([]);
@@ -31,9 +30,11 @@ function Play() {
     }, [isPlaying]);
 
     useEffect(() => {
-        audioElem.current.currentTime = 0;
-        audioElem.current.play();
-    }, [currentSong.name]);
+        if (isPlaying) {
+            audioElem.current.currentTime = 0;
+            audioElem.current.play();
+        }
+    }, [currentSong._id]);
 
     const onPlaying = () => {
         const duration = audioElem.current.duration;
@@ -95,10 +96,14 @@ function Play() {
                         {currentSong.name}
                     </div>
 
-                    <div className="text-xl text-center text-white">
-                        {Math.floor(currentSong.currentTime / 60)}:
-                        {Math.floor(currentSong.currentTime % 60)}
-                    </div>
+                    {currentSong.currentTime && (
+                        <div className="text-xl text-center text-white">
+                            {Math.floor(currentSong.currentTime / 60)}:
+                            {Math.floor(currentSong.currentTime % 60) < 10
+                                ? `0${Math.floor(currentSong.currentTime % 60)}`
+                                : Math.floor(currentSong.currentTime % 60)}
+                        </div>
+                    )}
 
                     {/* <Progress
                         value={currentSong.progress}
@@ -114,14 +119,24 @@ function Play() {
                     >
                         <div
                             className="bg-blue-600 h-1.5 rounded-full dark:bg-blue-500"
-                            style={{ width: `${currentSong.progress + "%"}` }}
+                            style={{
+                                width: `${
+                                    currentSong.progress
+                                        ? currentSong.progress + "%"
+                                        : 0 + "%"
+                                }`,
+                            }}
                         ></div>
                     </div>
 
-                    <div className="text-xl text-center text-white">
-                        {Math.floor(currentSong.length / 60)}:
-                        {Math.floor(currentSong.length % 60)}
-                    </div>
+                    {currentSong.length && (
+                        <div className="text-xl text-center text-white">
+                            {Math.floor(currentSong.length / 60)}:
+                            {Math.floor(currentSong.length % 60) < 10
+                                ? `0${Math.floor(currentSong.length % 60)}`
+                                : Math.floor(currentSong.length % 60)}
+                        </div>
+                    )}
                     <Player
                         name={currentSong.name}
                         track={currentSong.track}
