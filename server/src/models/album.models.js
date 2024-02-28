@@ -2,6 +2,11 @@ import mongoose, { Schema } from "mongoose";
 
 const albumSchema = new Schema(
     {
+        id: {
+            type: String,
+            required: true,
+            unique: true,
+        },
         name: {
             type: String,
             required: true,

@@ -6,6 +6,7 @@ import ApiError from "../utils/ApiError.js";
 import { Song } from "../models/song.models.js";
 import paginate from "mongoose-paginate-v2";
 import { collectAllSongs } from "../utils/SongQuery.js";
+import SomeRandomSong from "../../a.js";
 
 const uploadSong = asyncWrapper(async (req, res) => {
     const { name, singer, album } = req.body;
@@ -79,12 +80,14 @@ const uploadSongToDb = async (song) => {
         const { name, primaryArtists } = song;
 
         await Song.create({
+            id: song.id,
             name: name,
             singer: primaryArtists,
             track: song.downloadUrl[4].link,
             duration: song.duration,
             language: song.language,
             image: song.image[2].link,
+            playCount: song.playCount,
         });
     } catch (error) {
         console.log("outer loop failed", error);

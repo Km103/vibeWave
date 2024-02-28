@@ -11,8 +11,10 @@ const searchSong = asyncWrapper(async (req, res) => {
     if (!name) {
         throw new ApiError(400, "Name is required");
     }
+
     const options = {
-        page: page | 1,
+        sort: { playCount: -1 },
+        page: page || 1,
         limit: limit || 10,
     };
 

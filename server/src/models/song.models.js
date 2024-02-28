@@ -2,6 +2,10 @@ import mongoose, { Schema } from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 const songSchema = new Schema(
     {
+        id: {
+            type: String,
+            required: true,
+        },
         name: {
             type: String,
             required: true,
@@ -9,7 +13,6 @@ const songSchema = new Schema(
         },
         singer: {
             type: String,
-            required: true,
         },
         track: {
             type: String,
@@ -24,10 +27,14 @@ const songSchema = new Schema(
         image: {
             type: String,
         },
-        // album: {
-        //     type: Schema.Types.ObjectId,
-        //     ref: "Album",
-        // },
+        playCount: {
+            type: Number,
+            default: 0,
+        },
+        album: {
+            type: Schema.Types.ObjectId,
+            ref: "Album",
+        },
     },
     {
         timestamps: true,
