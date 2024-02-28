@@ -15,18 +15,15 @@ const albumSchema = new Schema(
         image: {
             type: String,
         },
+        language: {
+            type: String,
+        },
         songs: [
             {
                 type: Schema.Types.ObjectId,
                 ref: "Song",
             },
         ],
-        language: {
-            type: String,
-        },
-        artist: {
-            type: String,
-        },
     },
     {
         timestamps: true,

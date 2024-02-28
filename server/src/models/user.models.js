@@ -4,16 +4,11 @@ import jwt from "jsonwebtoken";
 
 const userSchema = new Schema(
     {
-        firstName: {
+        name: {
             type: String,
             required: true,
             lowercase: true,
             trim: true,
-        },
-        lastName: {
-            type: String,
-            trim: true,
-            lowercase: true,
         },
         email: {
             type: String,
@@ -28,16 +23,28 @@ const userSchema = new Schema(
         refreshToken: {
             type: String,
         },
-        likedSongs: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Song",
-            },
-        ],
         role: {
             type: String,
             default: "user",
         },
+        favouriteSongs: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Song",
+            },
+        ],
+        playlists: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Playlist",
+            },
+        ],
+        artists: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Artist",
+            },
+        ],
     },
     {
         timestamps: true,

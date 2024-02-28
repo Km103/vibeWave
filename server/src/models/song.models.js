@@ -31,7 +31,7 @@ const songSchema = new Schema(
             type: Number,
             default: 0,
         },
-        album: {
+        albumId: {
             type: Schema.Types.ObjectId,
             ref: "Album",
         },
