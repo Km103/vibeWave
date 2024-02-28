@@ -6,7 +6,6 @@ import ApiError from "../utils/ApiError.js";
 import { Song } from "../models/song.models.js";
 import paginate from "mongoose-paginate-v2";
 import { collectAllSongs } from "../utils/SongQuery.js";
-import SomeRandomSong from "../../a.js";
 
 const uploadSong = asyncWrapper(async (req, res) => {
     const { name, singer, album } = req.body;
@@ -49,14 +48,6 @@ const uploadSong = asyncWrapper(async (req, res) => {
     );
 });
 
-const getSong = asyncWrapper(async (req, res) => {
-    const song = await Song.findById(req.params.ID);
-    if (!song) {
-        throw new ApiError(404, "Song does not exist");
-    }
-    res.status(200).json(new ApiResonse(200, song));
-});
-
 const getAllSongs = asyncWrapper(async (req, res) => {
     const page = req.query.page || 1;
     const limit = req.query.limit || 10;
@@ -96,18 +87,21 @@ const uploadSongToDb = async (song) => {
 
 const updateAllSongs = asyncWrapper(async (req, res) => {
     const AllSongs = await collectAllSongs();
+
     if (!AllSongs) {
         throw new ApiError(404, "Song list is empty");
     }
     console.log(AllSongs.length);
 
     let cnt = 0;
+
     AllSongs?.forEach(async (song) => {
         await uploadSongToDb(song);
         cnt = cnt + 1;
         if (cnt === 100)
             await new Promise((resolve) => setTimeout(resolve, 500));
     });
+
     res.status(200).json(
         new ApiResonse(200, {}, "songs updated to DB successfully")
     );
@@ -122,4 +116,22 @@ const deleteAllSongs = asyncWrapper(async (req, res) => {
         new ApiResonse(200, {}, "songs deleted from DB successfully")
     );
 });
-export { uploadSong, getSong, getAllSongs, updateAllSongs, deleteAllSongs };
+
+const getSongByQuery = asyncWrapper(async (req, res) => {
+    const id = req.query.id;
+    const song = await Song.findOne({ id: id });
+    if (!song) {
+        throw new ApiError(404, "Song does not exist");
+    }
+    res.status(200).json(
+        new ApiResonse(200, song, "Song Fetched Successfully")
+    );
+});
+
+export {
+    uploadSong,
+    getAllSongs,
+    updateAllSongs,
+    deleteAllSongs,
+    getSongByQuery,
+};

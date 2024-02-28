@@ -13,7 +13,7 @@ function Play() {
     const progressRef = useRef(null);
 
     useEffect(() => {
-        getAllSongs(100, 100).then((data) => {
+        getAllSongs(4).then((data) => {
             setSongs(data);
             setCurrentSong(data[2]);
         });

@@ -21,7 +21,7 @@ export const SongQuery = async (query, page = 1, limit = 10) => {
 export const AllSongQueryPages = async (query) => {
     const mysongs = [];
     for (let i = 1; i < 600; i++) {
-        if (i % 50 === 0)
+        if (i % 40 === 0)
             await new Promise((resolve) => setTimeout(resolve, 500));
         SongQuery(query, i, 20)
             .then((songsData) => {
