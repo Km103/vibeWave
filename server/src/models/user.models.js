@@ -27,7 +27,7 @@ const userSchema = new Schema(
             type: String,
             default: "user",
         },
-        favouriteSongs: [
+        recentSongs: [
             {
                 type: Schema.Types.ObjectId,
                 ref: "Song",

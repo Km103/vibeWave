@@ -3,6 +3,7 @@ import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import { User } from "../models/user.models.js";
 import jwt from "jsonwebtoken";
+import { Song } from "../models/song.models.js";
 
 const generateAccessAndRefreshTokens = async (userId) => {
     try {
@@ -223,7 +224,48 @@ const deleteUserAccount = asyncWrapper(async (req, res) => {
         .json(new ApiResponse(200, {}, "User deleted Successfully "));
 });
 
-const getSongsHistory = () => {};
+const addRecentSong = asyncWrapper(async (req, res) => {
+    const user = await User.findById(req.user._id).select(
+        "-password -refreshToken"
+    );
+    const song = req.body.songId;
+    if (!song) {
+        throw new ApiError(404, "Song not found");
+    }
+    user.recentSongs.push(song);
+    await user.save({ validateBeforeSave: false });
+    res.status(200).json(
+        new ApiResponse(200, user, "Song added to recent songs successfully")
+    );
+});
+
+const getRecentSongs = asyncWrapper(async (req, res) => {
+    const recentSongs = await User.aggregate([
+        {
+            $match: {
+                _id: req.user._id,
+            },
+        },
+        {
+            $lookup: {
+                from: "songs",
+                localField: "recentSongs",
+                foreignField: "_id",
+                as: "recentSongs",
+            },
+        },
+        {
+            $project: {
+                _id: 1,
+                recentSongs: 1,
+            },
+        },
+    ]);
+
+    res.status(200).json(
+        new ApiResponse(200, recentSongs, "Recent songs fetched successfully")
+    );
+});
 
 export {
     registerUser,
@@ -233,6 +275,7 @@ export {
     changePassword,
     getAllUsers,
     getUser,
-    getSongsHistory,
     refreshAccessToken,
+    getRecentSongs,
+    addRecentSong,
 };
