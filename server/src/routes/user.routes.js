@@ -8,9 +8,8 @@ import {
     logoutUser,
     refreshAccessToken,
     registerUser,
-    AddToFavourites,
-    getFavouriteSongs,
     getRecentSongs,
+    addRecentSong,
 } from "../controllers/user.controllers.js";
 
 import { verifyJWT } from "../middlewares/auth.middleware.js";
@@ -23,14 +22,12 @@ router.route("/login").post(loginUser);
 router.route("/logout").post(verifyJWT, logoutUser);
 router.route("/refresh-token").post(refreshAccessToken);
 
-router.route("/:ID").get(verifyJWT, getUser);
+// router.route("/:ID").get(verifyJWT, getUser);
 
 router.route("/").get(verifyJWT, getAllUsers);
 router.route("/change_password").post(verifyJWT, changePassword);
 router.route("/delete").post(verifyJWT, deleteUserAccount);
 
-router.route("/favourites").post(verifyJWT, AddToFavourites);
-router.route("/favourites/").get(verifyJWT, getFavouriteSongs);
-
-router.route("/recent").get(verifyJWT, getRecentSongs);
+router.route("/recentsong").get(verifyJWT, getRecentSongs);
+router.route("/recentsong").post(verifyJWT, addRecentSong);
 export default router;

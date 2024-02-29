@@ -3,8 +3,7 @@ import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import { User } from "../models/user.models.js";
 import jwt from "jsonwebtoken";
-import { Song } from "../models/song.models.js";
-
+import mongoose from "mongoose";
 const generateAccessAndRefreshTokens = async (userId) => {
     try {
         const user = await User.findById(userId);
@@ -19,9 +18,9 @@ const generateAccessAndRefreshTokens = async (userId) => {
 };
 
 const registerUser = asyncWrapper(async (req, res) => {
-    const { firstName, lastName, email, password } = req.body;
+    const { name, email, password } = req.body;
 
-    if ([firstName, email, password].some((field) => field?.trim() === "")) {
+    if ([name, email, password].some((field) => field?.trim() === "")) {
         throw new ApiError(400, "All fields are required");
     }
 
@@ -32,8 +31,7 @@ const registerUser = asyncWrapper(async (req, res) => {
     }
 
     const newUser = await User.create({
-        firstName: firstName,
-        lastName: lastName,
+        name: name,
         email: email,
         password: password,
     });
@@ -189,7 +187,7 @@ const changePassword = asyncWrapper(async (req, res) => {
 });
 
 const getUser = asyncWrapper(async (req, res) => {
-    const user = await User.findById(req.params.ID).select(
+    const user = await User.findById(req.body._id).select(
         "-password -refreshToken"
     );
     console.log();
@@ -232,18 +230,26 @@ const addRecentSong = asyncWrapper(async (req, res) => {
     if (!song) {
         throw new ApiError(404, "Song not found");
     }
+    if (user.recentSongs.includes(song)) {
+        user.recentSongs = user.recentSongs.filter(
+            (s) => s.toString() !== song
+        );
+    }
+    if (user.recentSongs.length > 10) {
+        user.recentSongs.shift();
+    }
     user.recentSongs.push(song);
     await user.save({ validateBeforeSave: false });
     res.status(200).json(
-        new ApiResponse(200, user, "Song added to recent songs successfully")
+        new ApiResponse(200, {}, "Song added to recent songs successfully")
     );
 });
 
 const getRecentSongs = asyncWrapper(async (req, res) => {
-    const recentSongs = await User.aggregate([
+    const Songs = await User.aggregate([
         {
             $match: {
-                _id: req.user._id,
+                _id: new mongoose.Types.ObjectId(req.user._id),
             },
         },
         {
@@ -263,7 +269,7 @@ const getRecentSongs = asyncWrapper(async (req, res) => {
     ]);
 
     res.status(200).json(
-        new ApiResponse(200, recentSongs, "Recent songs fetched successfully")
+        new ApiResponse(200, Songs, "Recent songs fetched successfully")
     );
 });
 

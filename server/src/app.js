@@ -19,8 +19,10 @@ app.use(cookieParser());
 import songRoutes from "./routes/song.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import searchRoutes from "./routes/search.routes.js";
+import playlistRoutes from "./routes/playlist.routes.js";
 app.use("/api/v1/song", songRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/search", searchRoutes);
+app.use("/api/v1/playlist", playlistRoutes);
 
 export { app };

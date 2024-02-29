@@ -31,15 +31,10 @@ const userSchema = new Schema(
             {
                 type: Schema.Types.ObjectId,
                 ref: "Song",
+                unique: true,
             },
         ],
-        playlists: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: "Playlist",
-            },
-        ],
-        artists: [
+        artistsFollowed: [
             {
                 type: Schema.Types.ObjectId,
                 ref: "Artist",
