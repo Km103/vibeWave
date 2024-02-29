@@ -134,4 +134,5 @@ export {
     updateAllSongs,
     deleteAllSongs,
     getSongByQuery,
+    uploadSongToDb,
 };

@@ -4,7 +4,6 @@ const artistSchema = new Schema(
     {
         id: {
             type: String,
-            required: true,
             unique: true,
         },
         name: {
@@ -15,7 +14,7 @@ const artistSchema = new Schema(
         image: {
             type: String,
         },
-        fanCount: {
+        followerCount: {
             type: Number,
             default: 0,
         },
@@ -23,6 +22,7 @@ const artistSchema = new Schema(
             {
                 type: Schema.Types.ObjectId,
                 ref: "Song",
+                unique: true,
             },
         ],
     },
