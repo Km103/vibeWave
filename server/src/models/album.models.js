@@ -24,6 +24,9 @@ const albumSchema = new Schema(
                 ref: "Song",
             },
         ],
+        songCount: {
+            type: Number,
+        },
     },
     {
         timestamps: true,

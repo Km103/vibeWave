@@ -1,8 +1,7 @@
-export const ArtistSongsQuery = async (id, page = 1) => {
+export const AlbumSongsQuery = async (id) => {
     try {
-        //console.log(`${process.env.DATA_URL}/artists/${id}/songs?page=${page}`);
         const response = await fetch(
-            `${process.env.DATA_URL}/artists/${id}/songs?page=${page}`,
+            `${process.env.DATA_URL}/albums/?id=${id}`,
             {
                 method: "GET",
                 headers: {
@@ -13,7 +12,7 @@ export const ArtistSongsQuery = async (id, page = 1) => {
 
         const data = await response.json(); // Parse the JSON response
 
-        return data;
+        return data.data.songs;
     } catch (error) {
         console.error("Error fetching songs:", error);
     }
@@ -34,23 +33,4 @@ export const collectAllArtistSongs = async (id) => {
         });
     }
     return songs;
-};
-
-export const getArtistFollowers = async (id) => {
-    try {
-        const response = await fetch(
-            `${process.env.DATA_URL}/artists/?id=${id}`,
-            {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            }
-        );
-        const data = await response.json(); // Parse the JSON response
-
-        return data.data.followerCount;
-    } catch (error) {
-        console.error("Error fetching followers:", error);
-    }
 };

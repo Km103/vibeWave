@@ -9,6 +9,7 @@ import { uploadSongToDb } from "./song.controller.js";
 import { collectAllArtistSongs } from "../utils/ArtistSongsQuery.js";
 
 import { getArtistFollowers } from "../utils/ArtistSongsQuery.js";
+import { set } from "mongoose";
 
 const createArtist = asyncWrapper(async (req, res) => {
     const { name, image } = req.body;
@@ -92,7 +93,7 @@ const uploadArtistSongs = async (artist) => {
 };
 
 const updateAllArtistSongs = asyncWrapper(async (req, res) => {
-    const artists = await Artist.find({ id: 565990 });
+    const artists = await Artist.find();
     // console.log(artists.length);
     artists.forEach(async (artist) => {
         await uploadArtistSongs(artist);
@@ -113,16 +114,13 @@ const deleteAllArtistsSongs = asyncWrapper(async (req, res) => {
 
 const updateAllArtistsFollowers = asyncWrapper(async (req, res) => {
     const artists = await Artist.find();
-    let cnt = 0;
-    artists.forEach(async (artist) => {
+    for (const artist of artists) {
+        await new Promise((resolve) => setTimeout(resolve, 500)); // Introduce 500ms delay
         const followers = await getArtistFollowers(artist.id);
         console.log("followers", followers);
         artist.followerCount = followers;
         await artist.save();
-        cnt = cnt + 1;
-        if (cnt % 10 == 0)
-            await new Promise((resolve) => setTimeout(resolve, 500));
-    });
+    }
 
     res.status(200).json(
         new ApiResponse(200, {}, "Artists Followers Updated Successfully")
