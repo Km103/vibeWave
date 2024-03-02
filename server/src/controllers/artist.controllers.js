@@ -7,7 +7,7 @@ import { collectAllArtists } from "../utils/artistQuery.js";
 import { ArtistSongsQuery } from "../utils/ArtistSongsQuery.js";
 import { uploadSongToDb } from "./song.controller.js";
 import { collectAllArtistSongs } from "../utils/ArtistSongsQuery.js";
-
+import mongoose from "mongoose";
 import { getArtistFollowers } from "../utils/ArtistSongsQuery.js";
 import { set } from "mongoose";
 
@@ -127,6 +127,43 @@ const updateAllArtistsFollowers = asyncWrapper(async (req, res) => {
     );
 });
 
+const getArtist = asyncWrapper(async (req, res) => {
+    const id = req.query.id;
+
+    const artist = await Artist.aggregate([
+        {
+            $match: {
+                _id: new mongoose.Types.ObjectId(id),
+            },
+        },
+        {
+            $lookup: {
+                from: "songs",
+                localField: "songs",
+                foreignField: "_id",
+                pipeline: [
+                    {
+                        $sort: {
+                            playCount: -1,
+                        },
+                    },
+                ],
+                as: "songs",
+            },
+        },
+        {
+            $project: {
+                id: 0,
+            },
+        },
+    ]);
+    if (!artist) {
+        throw new ApiError(404, "Artist does not exist");
+    }
+    res.status(200).json(
+        new ApiResponse(200, artist, "Artist Fetched Successfully")
+    );
+});
 export {
     createArtist,
     uploadArtistToDb,
@@ -135,4 +172,5 @@ export {
     updateAllArtistSongs,
     deleteAllArtistsSongs,
     updateAllArtistsFollowers,
+    getArtist,
 };
