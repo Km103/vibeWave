@@ -16,5 +16,13 @@ Welcome to VibeWave! This is a project that aims to create a unique audio experi
 To use VibeWave, follow these steps:
 
 1. Clone this repository: `git clone https://github.com/your-username/vibewave.git`
-2. Install the required dependencies: `npm install`
-3. Start the application: `npm start`
+2. first start the server.
+
+    - `cd server`
+        - `npm install`
+        - `npm start`
+
+3. then start the client.
+    - `cd client`
+        - `npm install`
+        - `npm run dev`
