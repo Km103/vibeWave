@@ -113,7 +113,7 @@ const deleteAllArtistsSongs = asyncWrapper(async (req, res) => {
 });
 
 const updateAllArtistsFollowers = asyncWrapper(async (req, res) => {
-    const artists = await Artist.find();
+    const artists = await Artist.find({});
     for (const artist of artists) {
         await new Promise((resolve) => setTimeout(resolve, 500)); // Introduce 500ms delay
         const followers = await getArtistFollowers(artist.id);
