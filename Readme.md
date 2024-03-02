@@ -18,11 +18,12 @@ To use VibeWave, follow these steps:
 1. Clone this repository: `git clone https://github.com/your-username/vibewave.git`
 2. Start the server.
 
-    - `cd server`
-    - `npm install`
-    - `npm start`
+-   `cd server`
+-   `npm install`
+-   `npm start`
 
 3. Start the client.
-    - `cd client`
-    - `npm install`
-    - `npm run dev`
+
+-   `cd client`
+-   `npm install`
+-   `npm run dev`
