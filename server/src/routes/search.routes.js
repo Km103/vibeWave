@@ -3,5 +3,5 @@ import { searchSong } from "../controllers/search.controllers.js";
 
 const router = Router();
 
-router.route("/song").post(searchSong);
+router.route("/song").get(searchSong);
 export default router;

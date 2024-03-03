@@ -164,6 +164,20 @@ const getArtist = asyncWrapper(async (req, res) => {
         new ApiResponse(200, artist, "Artist Fetched Successfully")
     );
 });
+
+const getTopArtists = asyncWrapper(async (req, res) => {
+    const topArtists = await Artist.find()
+        .sort({ followerCount: -1 })
+        .limit(10)
+        .select("-songs");
+    if (!topArtists) {
+        throw new ApiError(404, "No Artists found");
+    }
+    res.status(200).json(
+        new ApiResponse(200, topArtists, "Top Artists Fetched Successfully")
+    );
+});
+
 export {
     createArtist,
     uploadArtistToDb,
@@ -173,4 +187,5 @@ export {
     deleteAllArtistsSongs,
     updateAllArtistsFollowers,
     getArtist,
+    getTopArtists,
 };

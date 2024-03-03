@@ -5,20 +5,10 @@ import { Link } from "react-router-dom";
 import { getAllSongs } from "@/services/SongsService";
 import Player from "../components/Player/Player";
 
-function Play() {
-    const [songs, setSongs] = useState([]);
-    const [currentSong, setCurrentSong] = useState({});
+function Play({ songs, currentSong, setCurrentSong }) {
     const [isPlaying, setIsPlaying] = useState(false);
     const audioElem = useRef(null);
     const progressRef = useRef(null);
-
-    useEffect(() => {
-        getAllSongs(4).then((data) => {
-            setSongs(data);
-            setCurrentSong(data[2]);
-        });
-        console.log(songs);
-    }, []);
 
     useEffect(() => {
         if (isPlaying) {
@@ -57,14 +47,14 @@ function Play() {
 
     return (
         <div
-            className="w-screen min-h-screen h-full bg-black flex flex-col 
+            className="w-screen h-20 flex flex-col 
             "
         >
-            <div className="text-3xl py-4 font-medium  text-white text-center">
+            {/* <div className="text-3xl py-4 font-medium  text-white text-center">
                 Listen To top Songs
-            </div>
+            </div> */}
 
-            {songs.map(function (song) {
+            {/* {songs.map(function (song) {
                 return (
                     <li
                         className="text-white flex flex-col text-xl text-center py-4
@@ -78,7 +68,7 @@ function Play() {
                         {song.name}
                     </li>
                 );
-            })}
+            })} */}
 
             {currentSong && (
                 <div
@@ -90,6 +80,8 @@ function Play() {
                         ref={audioElem}
                         onTimeUpdate={onPlaying}
                     />
+
+                    <img src={currentSong.image} className="h-16 w-16" alt="" />
 
                     <div className="text-3xl text-center text-white">
                         {currentSong.name}

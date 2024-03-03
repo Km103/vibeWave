@@ -6,6 +6,7 @@ import {
     updateAllArtists,
     updateAllArtistsFollowers,
     getArtist,
+    getTopArtists,
 } from "../controllers/artist.controllers.js";
 
 const router = Router();
@@ -16,5 +17,7 @@ const router = Router();
 // router.route("/deleteAllSongs").post(deleteAllArtistsSongs);
 //router.route("/updateAllFollowers").post(updateAllArtistsFollowers);
 
+router.route("/top").get(getTopArtists);
 router.route("/").get(getArtist);
+
 export default router;
