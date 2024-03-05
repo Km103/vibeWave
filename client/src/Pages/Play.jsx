@@ -1,8 +1,4 @@
-import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import PlayCard from "../components/PlayCard";
-import { Link } from "react-router-dom";
-import { getAllSongs } from "@/services/SongsService";
 import Player from "../components/Player/Player";
 
 function Play({ songs, currentSong, setCurrentSong }) {
@@ -34,6 +30,13 @@ function Play({ songs, currentSong, setCurrentSong }) {
             length: duration,
             currentTime: currentTime,
         });
+
+        if (audioElem.current.ended) {
+            const currentIndex = songs.findIndex(
+                (song) => song._id === currentSong._id
+            );
+            setCurrentSong(songs[(currentIndex + 1) % songs.length]);
+        }
     };
 
     const handleProgressClick = (e) => {
