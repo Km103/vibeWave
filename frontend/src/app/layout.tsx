@@ -3,6 +3,9 @@ import "./globals.css";
 import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
+import { PiWaveformDuotone } from "react-icons/pi";
+import Navbar from "@/components/Navbar";
+import Player from "@/components/Player";
 
 const fontSans = FontSans({
     subsets: ["latin"],
@@ -21,6 +24,10 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className="dark">
+            <head>
+                <title>Vibewave</title>
+            </head>
+
             <body
                 className={cn(
                     "min-h-screen bg-background font-sans antialiased",
@@ -28,7 +35,9 @@ export default function RootLayout({
                 )}
             >
                 <Header />
+                <Navbar />
                 {children}
+                <Player />
             </body>
         </html>
     );
