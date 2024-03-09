@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import { PiWaveformDuotone } from "react-icons/pi";
 import Navbar from "@/components/Navbar";
 import Player from "@/components/Player";
+import ReduxProvider from "@/redux/Provider";
 
 const fontSans = FontSans({
     subsets: ["latin"],
@@ -28,17 +29,19 @@ export default function RootLayout({
                 <title>Vibewave</title>
             </head>
 
-            <body
-                className={cn(
-                    "min-h-screen bg-background font-sans antialiased",
-                    fontSans.variable
-                )}
-            >
-                <Header />
-                <Navbar />
-                {children}
-                <Player />
-            </body>
+            <ReduxProvider>
+                <body
+                    className={cn(
+                        "min-h-screen bg-background font-sans antialiased",
+                        fontSans.variable
+                    )}
+                >
+                    <Header />
+                    <Navbar />
+                    {children}
+                    <Player />
+                </body>
+            </ReduxProvider>
         </html>
     );
 }

@@ -1,8 +1,8 @@
+"use client";
 import { createSlice } from "@reduxjs/toolkit";
-import { act } from "react-dom/test-utils";
 
 const initialState = {
-    currentSongs: [],
+    currentSongs: [{}],
     currentIndex: 0,
     isPlaying: false,
     isActive: false,

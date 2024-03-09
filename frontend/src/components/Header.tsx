@@ -2,9 +2,10 @@ import Link from "next/link";
 import React from "react";
 import { PiWaveformThin } from "react-icons/pi";
 import { PiWaveformDuotone } from "react-icons/pi";
-import { IoSearch } from "react-icons/io5";
+
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Button } from "./ui/button";
+import SearchBar from "./SearchBar";
 
 function Header() {
     return (
@@ -18,14 +19,7 @@ function Header() {
                 </Link>
             </div>
 
-            <div className="flex items-center border border-input rounded-xl px-4">
-                <IoSearch className="text-xl font-bold" />
-                <input
-                    type="text-border"
-                    className="w-80 h-10 px-4 bg-background focus:outline-none text-l"
-                    placeholder="Search for Songs, Artists, Albums"
-                />
-            </div>
+            <SearchBar />
 
             <div>
                 <Button className="bg-gray-200 hover:bg-gray-100 text-gray-800 font-md font-semibold">
