@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-
+import mongoosePaginate from "mongoose-paginate-v2";
 const artistSchema = new Schema(
     {
         id: {
@@ -30,5 +30,5 @@ const artistSchema = new Schema(
         timestamps: true,
     }
 );
-
+artistSchema.plugin(mongoosePaginate);
 export const Artist = mongoose.model("Artist", artistSchema);

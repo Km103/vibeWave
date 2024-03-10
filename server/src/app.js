@@ -22,6 +22,7 @@ import searchRoutes from "./routes/search.routes.js";
 import playlistRoutes from "./routes/playlist.routes.js";
 import artistRoutes from "./routes/artist.routes.js";
 import albumRoutes from "./routes/album.routes.js";
+import homeRoutes from "./routes/home.routes.js";
 
 app.use("/api/v1/song", songRoutes);
 app.use("/api/v1/user", userRoutes);
@@ -29,5 +30,5 @@ app.use("/api/v1/search", searchRoutes);
 app.use("/api/v1/playlist", playlistRoutes);
 app.use("/api/v1/artist", artistRoutes);
 app.use("/api/v1/album", albumRoutes);
-
+app.use("/api/v1/home", homeRoutes);
 export { app };

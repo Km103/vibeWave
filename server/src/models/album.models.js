@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-
+import mongoosePaginate from "mongoose-paginate-v2";
 const albumSchema = new Schema(
     {
         id: {
@@ -32,5 +32,5 @@ const albumSchema = new Schema(
         timestamps: true,
     }
 );
-
+albumSchema.plugin(mongoosePaginate);
 export const Album = mongoose.model("Album", albumSchema);
