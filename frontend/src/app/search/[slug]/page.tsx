@@ -29,7 +29,6 @@ function Page({ params }: { params: { slug: string } }) {
                                 singer={song.singer}
                                 image={song.image}
                                 onClick={() => {
-                                    const i: Number = 0;
                                     dispatch(
                                         setActiveSong({
                                             song: song,

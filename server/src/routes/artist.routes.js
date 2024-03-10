@@ -17,7 +17,7 @@ const router = Router();
 // router.route("/deleteAllSongs").post(deleteAllArtistsSongs);
 //router.route("/updateAllFollowers").post(updateAllArtistsFollowers);
 
-router.route("/top").get(getTopArtists);
-router.route("/").get(getArtist);
+// router.route("/top").get(getTopArtists);
+router.route("/:ID").get(getArtist);
 
 export default router;
