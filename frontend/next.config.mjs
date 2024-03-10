@@ -8,6 +8,9 @@ const nextConfig = {
             },
         ];
     },
+    images: {
+        domains: ["localhost", "res.cloudinary.com", "c.saavncdn.com"],
+    },
 };
 
 export default nextConfig;

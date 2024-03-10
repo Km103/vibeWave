@@ -7,4 +7,21 @@ const searchSongs = async (query: string, page: Number) => {
     );
     return response.data.data;
 };
-export default searchSongs;
+
+const searchArtists = async (query: string, page: Number) => {
+    query = query.replace(/%20/g, "+");
+    const response = await axios.get(
+        `/api/search/artist?q=${query}&page=${page}`
+    );
+    return response.data.data;
+};
+
+const searchAlbums = async (query: string, page: Number) => {
+    query = query.replace(/%20/g, "+");
+    const response = await axios.get(
+        `/api/search/album?q=${query}&page=${page}`
+    );
+    return response.data.data;
+};
+
+export { searchSongs, searchArtists, searchAlbums };

@@ -1,6 +1,6 @@
 "use client";
 import React, { use, useEffect, useState } from "react";
-import searchSongs from "@/services/search";
+import { searchSongs } from "@/services/search";
 import { usePlayerSelector, usePlayerDispatch } from "@/redux/store";
 import { setActiveSong } from "@/redux/features/PlayersSlice";
 import SongSearchCard from "@/components/SongSearchCard";
@@ -8,19 +8,19 @@ import { DiJava, DiVisualstudio } from "react-icons/di";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 function Page({ params }: { params: { slug: string } }) {
-    const [songs, setSongs] = useState<[]>([]);
+    const [songs, setSongs] = useState<[] | null>([]);
     const dispatch = usePlayerDispatch();
     useEffect(() => {
         searchSongs(params.slug, 1).then((data) => {
             setSongs(data.docs);
         });
-    }, []);
+    }, [params.slug]);
 
     if (songs) {
         console.log(songs);
         return (
             <div className="ml-[14%] px-6 py-4  mb-20">
-                <div className="text-3xl font-semibold py-4 ">Songs</div>
+                <div className="text-2xl font-semibold py-4 ">Songs</div>
                 <ScrollArea className=" b-2 px-16 h-80 mr-20">
                     {songs.map((song: any) => (
                         <div key={song._id}>
@@ -29,11 +29,14 @@ function Page({ params }: { params: { slug: string } }) {
                                 singer={song.singer}
                                 image={song.image}
                                 onClick={() => {
+                                    const i: Number = 0;
                                     dispatch(
                                         setActiveSong({
                                             song: song,
                                             data: songs,
-                                            i: songs.indexOf(song),
+                                            i: songs.findIndex(
+                                                (s: any) => s._id === song._id
+                                            ),
                                         })
                                     );
                                 }}

@@ -128,7 +128,7 @@ const updateAllArtistsFollowers = asyncWrapper(async (req, res) => {
 });
 
 const getArtist = asyncWrapper(async (req, res) => {
-    const id = req.query.id;
+    const id = req.params.ID;
 
     const artist = await Artist.aggregate([
         {
