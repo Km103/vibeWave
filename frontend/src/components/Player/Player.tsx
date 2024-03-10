@@ -45,9 +45,10 @@ function Player() {
             dispatch(playPause(true));
             setCurrentSong(activeSong);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeSong, dispatch]);
 
-    const onPlaying = () => {
+    function onPlaying() {
         const duration = audioElem?.current?.duration ?? 0;
         const currentTime = audioElem?.current?.currentTime ?? 0;
         setCurrentSong({
@@ -55,7 +56,7 @@ function Player() {
             progress: (currentTime / duration) * 100,
             currentTime: currentTime,
         });
-    };
+    }
     const handleProgressClick = (e: any) => {
         const offset = e.nativeEvent.offsetX;
         const width = progressRef?.current?.clientWidth ?? 0;
