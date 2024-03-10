@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import React, { use, useEffect, useRef, useState } from "react";
@@ -8,6 +9,7 @@ import { usePlayerDispatch, usePlayerSelector } from "@/redux/store";
 import Image from "next/image";
 import ProgressBar from "./ProgressBar";
 import Controls from "./Controls";
+import VolumeBar from "./VolumeBar";
 
 interface currentSong {
     progress: number;
@@ -45,7 +47,6 @@ function Player() {
             dispatch(playPause(true));
             setCurrentSong(activeSong);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeSong, dispatch]);
 
     function onPlaying() {
@@ -86,16 +87,17 @@ function Player() {
                     currentSong={currentSong}
                 />
             )}
-
             <div className=" flex flex-row items-center justify-between w-screen">
                 <div className="flex flex-row basis-1/4 items-center justify-center">
-                    <img
+                    <Image
                         src={activeSong.image}
-                        alt="cover"
-                        className="w-12 h-12 rounded-lg"
+                        alt="song"
+                        width={48}
+                        height={48}
+                        className="rounded-lg"
                     />
-                    <h1 className="text-white px-4 font-semibold">
-                        {activeSong?.name}
+                    <h1 className="text-white px-8 font-semibold">
+                        {activeSong?.name?.split("(")[0]}
                     </h1>
                 </div>
 
