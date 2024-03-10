@@ -9,7 +9,7 @@ const topArtists = async () => {
     try {
         const artists = await Artist.find()
             .sort({ followerCount: -1 })
-            .limit(10)
+            .limit(6)
             .select("name image followerCount");
         return artists;
     } catch (error) {
@@ -19,9 +19,9 @@ const topArtists = async () => {
 
 const topAlbums = async () => {
     try {
-        const albums = await Album.find()
+        const albums = await Album.find({ language: "hindi" })
             .sort({ songCount: -1 })
-            .limit(10)
+            .limit(6)
             .select("name image songCount");
         return albums;
     } catch (error) {
@@ -31,7 +31,7 @@ const topAlbums = async () => {
 
 const popularSongs = async () => {
     try {
-        const songs = await Song.find().sort({ playCount: -1 }).limit(10);
+        const songs = await Song.find().sort({ playCount: -1 }).limit(11);
         return songs;
     } catch (error) {
         console.log(error);
@@ -46,7 +46,7 @@ const getHomeData = asyncWrapper(async (req, res) => {
         new ApiResponse(200, {
             topArtists: topArtistsData,
             topAlbums: topAlbumsData,
-            popularSongs: popularSongsData,
+            topSongs: popularSongsData,
         })
     );
 });

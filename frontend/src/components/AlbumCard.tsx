@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-function ArtistCard({
+function AlbumCard({
     name,
     image,
     onClick,
@@ -12,13 +12,13 @@ function ArtistCard({
 }) {
     return (
         <div>
-            <div className="flex flex-col   items-center  rounded-xl px-4 py-2 w-full">
+            <div className="flex flex-col    items-center  rounded-xl px-4 py-2 ">
                 <Image
                     src={image}
-                    alt="artist"
-                    width="150"
-                    height="150"
-                    className=" rounded-full hover:cursor-pointer hover:opacity-95"
+                    alt="Album"
+                    width="170"
+                    height="170"
+                    className=" rounded-lg hover:cursor-pointer hover:opacity-95"
                     onClick={onClick}
                 />
                 <div className="pt-4 text-xl font-semibold">{name}</div>
@@ -27,4 +27,4 @@ function ArtistCard({
     );
 }
 
-export default ArtistCard;
+export default AlbumCard;
