@@ -83,6 +83,7 @@ function Player() {
                     currentSong={currentSong}
                 />
             )}
+
             <div className=" flex flex-row items-center justify-between w-screen">
                 <div className="flex flex-row basis-1/4 items-center justify-center">
                     <img
@@ -97,7 +98,7 @@ function Player() {
 
                 <div className="flex flex-row items-center justify-evenly basis-2/4">
                     {currentSong.currentTime && (
-                        <div className="basis-1/6">
+                        <div className="basis-1/6 text-center">
                             {Math.floor(currentSong.currentTime / 60)}:
                             {Math.floor(currentSong.currentTime % 60) < 10
                                 ? `0${Math.floor(currentSong.currentTime % 60)}`
@@ -105,17 +106,15 @@ function Player() {
                         </div>
                     )}
                     <div className="flex flex-row justify-center basis-4/6 w-full">
-                        <h1 className=" ">
-                            {activeSong.singer?.split(",")[0]}
-                        </h1>
+                        <h1 className="">{activeSong.singer?.split(",")[0]}</h1>
                         {activeSong.singer?.split(",")[1] && (
-                            <h1 className="basis-1/6">
+                            <h1 className="">
                                 , {activeSong.singer?.split(",")[1]}
                             </h1>
                         )}
                     </div>
 
-                    <div className="basis-1/12">
+                    <div className="basis-1/6 text-center">
                         {Math.floor(activeSong.duration / 60)}:
                         {Math.floor(activeSong.duration % 60) < 10
                             ? `0${Math.floor(activeSong.duration % 60)}`
