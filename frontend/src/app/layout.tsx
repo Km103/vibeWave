@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 import { PiWaveformDuotone } from "react-icons/pi";
 import Navbar from "@/components/Navbar";
-import Player from "@/components/Player";
+import Player from "@/components/Player/Player";
 import ReduxProvider from "@/redux/Provider";
 
 const fontSans = FontSans({

@@ -7,7 +7,7 @@ import { prevSong, nextSong, playPause } from "@/redux/features/PlayersSlice";
 import { usePlayerDispatch, usePlayerSelector } from "@/redux/store";
 import Image from "next/image";
 import ProgressBar from "./ProgressBar";
-import Controls from "./Player/Controls";
+import Controls from "./Controls";
 
 interface currentSong {
     progress: number;
@@ -25,7 +25,9 @@ function Player() {
     const activeSong = usePlayerSelector((state) => state.player.activeSong);
     const audioElem = useRef<HTMLAudioElement | null>(null);
     const progressRef = useRef<HTMLDivElement | null>(null);
-    const [currentSong, setCurrentSong] = useState<{}>({} as currentSong);
+    const [currentSong, setCurrentSong] = useState<currentSong>(
+        {} as currentSong
+    );
     useEffect(() => {
         if (isPlaying) {
             audioElem?.current?.play();
@@ -62,7 +64,7 @@ function Player() {
         if (audioElem.current)
             audioElem.current.currentTime =
                 (percent * activeSong.duration) / 100;
-        setCurrentSong({ ...currentSong, progress: percent, length: 0 });
+        setCurrentSong({ ...currentSong, progress: percent });
     };
 
     return (
