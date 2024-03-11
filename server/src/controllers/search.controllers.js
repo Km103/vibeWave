@@ -81,4 +81,55 @@ const searchAlbum = asyncWrapper(async (req, res) => {
     );
 });
 
-export { searchSong, searchArtist, searchAlbum };
+const searchAll = asyncWrapper(async (req, res) => {
+    const name = req.query.q;
+    const page = req.query.page;
+    const limit = req.query.limit;
+    if (!name) {
+        throw new ApiError(400, "Name is required");
+    }
+
+    const options = {
+        sort: { playCount: -1 },
+        page: page || 1,
+        limit: limit || 10,
+    };
+    const options2 = {
+        sort: {
+            followerCount: -1,
+        },
+        page: page || 1,
+        limit: limit || 3,
+        select: "name image followerCount",
+    };
+
+    const options3 = {
+        sort: {
+            songCount: -1,
+        },
+        page: page || 1,
+        limit: limit || 3,
+        select: "name image songCount",
+    };
+
+    const songs = await Song.paginate(
+        { name: { $regex: name, $options: "i" } },
+        options
+    );
+    const artists = await Artist.paginate(
+        { name: { $regex: name, $options: "i" } },
+        options2
+    );
+    const albums = await Album.paginate(
+        { name: { $regex: name, $options: "i" } },
+        options3
+    );
+    res.status(200).json(
+        new ApiResponse(
+            200,
+            { songs, artists, albums },
+            "Songs Searched Successfully"
+        )
+    );
+});
+export { searchSong, searchArtist, searchAlbum, searchAll };

@@ -7,12 +7,18 @@ import SongSearchCard from "@/components/SongSearchCard";
 import { DiJava, DiVisualstudio } from "react-icons/di";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
+interface Search {
+    songs: Array<any>;
+    albums: Array<any>;
+    artists: Array<any>;
+}
+
 function Page({ params }: { params: { slug: string } }) {
-    const [songs, setSongs] = useState<[] | null>([]);
+    const [searchData, setSearchData] = useState<Search>({} as Search);
     const dispatch = usePlayerDispatch();
     useEffect(() => {
         searchSongs(params.slug, 1).then((data) => {
-            setSongs(data.docs);
+            setSearchData({ songs: data.docs });
         });
     }, [params.slug]);
 
