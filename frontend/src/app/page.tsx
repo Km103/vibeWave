@@ -19,7 +19,6 @@ export default function Home() {
     const router = useRouter();
     useEffect(() => {
         getHomeData().then((data) => {
-            console.log(data);
             setHomeData(data);
             setLoading(false);
         });

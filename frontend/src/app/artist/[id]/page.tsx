@@ -18,7 +18,6 @@ function Page({ params }: { params: { id: string } }) {
     const dispatch = usePlayerDispatch();
     useEffect(() => {
         getArtist(params.id).then((data) => {
-            console.log(data[0]);
             setArtist(data[0]);
         });
     }, [params.id]);

@@ -11,6 +11,7 @@ import ProgressBar from "./ProgressBar";
 import Controls from "./Controls";
 import VolumeBar from "./VolumeBar";
 import { FaVolumeHigh } from "react-icons/fa6";
+
 interface currentSong {
     progress: number;
     currentTime: number;
@@ -27,6 +28,7 @@ function Player() {
     const activeSong = usePlayerSelector((state) => state.player.activeSong);
     const audioElem = useRef<HTMLAudioElement | null>(null);
     const progressRef = useRef<HTMLDivElement | null>(null);
+    const isActive = usePlayerSelector((state) => state.player.isActive);
     const [currentSong, setCurrentSong] = useState<currentSong>(
         {} as currentSong
     );
@@ -77,6 +79,7 @@ function Player() {
         setCurrentSong({ ...currentSong, progress: percent });
     };
 
+    if (isActive === false) return null;
     return (
         <div
             className="flex flex-col items-center 

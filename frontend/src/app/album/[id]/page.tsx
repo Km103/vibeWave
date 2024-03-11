@@ -18,7 +18,6 @@ function Page({ params }: { params: { id: string } }) {
     const dispatch = usePlayerDispatch();
     useEffect(() => {
         getAlbum(params.id).then((data) => {
-            console.log(data[0]);
             setAlbum(data[0]);
         });
     }, [params.id]);
