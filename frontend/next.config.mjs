@@ -9,7 +9,12 @@ const nextConfig = {
         ];
     },
     images: {
-        domains: ["localhost", "res.cloudinary.com", "c.saavncdn.com"],
+        domains: [
+            "localhost",
+            "res.cloudinary.com",
+            "c.saavncdn.com",
+            "www.jiosaavn.com",
+        ],
     },
 };
 

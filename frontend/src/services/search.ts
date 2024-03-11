@@ -30,4 +30,4 @@ const searchAllData = async (query: string, page: Number = 1) => {
     return response.data.data;
 };
 
-export { searchSongs, searchArtists, searchAlbums };
+export { searchSongs, searchArtists, searchAlbums, searchAllData };

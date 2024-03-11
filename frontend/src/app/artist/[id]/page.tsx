@@ -40,11 +40,11 @@ function Page({ params }: { params: { id: string } }) {
                         </div>
                     </div>
 
-                    <h1 className="text-2xl  font-semibold pt-16 pb-4">
+                    <h1 className="text-2xl px-8 font-semibold pt-24 ">
                         Songs
                     </h1>
 
-                    <ScrollArea className="h-screen mt-4 py-4 border-r-4  rounded-md  mb-20 px-8 mr-16  flex flex-col">
+                    <ScrollArea className="h-[680px] mt-4 py-4 border-r-4  rounded-md  mb-20 px-8 mr-16  flex flex-col">
                         {artist.songs?.map((song: any) => (
                             <div key={song.id}>
                                 {song.image && (
