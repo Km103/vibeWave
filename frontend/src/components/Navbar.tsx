@@ -27,7 +27,7 @@ function Navbar() {
                     <FaHome className="inline-block text-2xl mr-2" />
                     Home
                 </Link>
-                <Link
+                {/* <Link
                     href="/liked"
                     className={`link
                         ${
@@ -38,7 +38,7 @@ function Navbar() {
                 >
                     <GrFavorite className="inline-block text-2xl mr-2" />
                     Liked Songs
-                </Link>
+                </Link> */}
             </div>
 
             <div className="w-full bg-bg text-2xl font-bold  pt-6 text-foreground ">
