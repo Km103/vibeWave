@@ -14,7 +14,7 @@ import {
 // router.route("/deleteAll").post(deleteAllAlbums);
 router.route("/top").get(getTopAlbums);
 // router.route("/updateAllSongs").post(updateAllAlbumSongs);
-router.route("/").get(getAlbum);
+router.route("/:ID").get(getAlbum);
 ///router.route("/deleteAllSongs").post(deleteAllAlbumsSongs);
 
 router.route("/create").post(createAlbum);

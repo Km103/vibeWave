@@ -13,7 +13,7 @@ import Link from "next/link";
 function Navbar() {
     const pathname = usePathname();
     return (
-        <div className="pt-16 justify-start w-[14%] gap-y-4 px-4 flex flex-col border-r h-full fixed ">
+        <div className="pt-16 justify-start w-[14%] mt-24 gap-y-4 px-4 flex flex-col border-r h-full fixed ">
             <div className="flex flex-col gap-y-2.5">
                 <Link
                     href="/"

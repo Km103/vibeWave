@@ -19,8 +19,8 @@ function Page({ params }: { params: { slug: string } }) {
     if (songs) {
         console.log(songs);
         return (
-            <div className="ml-[14%] px-6 py-4  mb-20">
-                <div className="text-2xl font-semibold py-4 ">Songs</div>
+            <div className="ml-[14%] px-6 py-4 mb-20">
+                <div className="text-2xl font-semibold py-4 mt-24 ">Songs</div>
                 <ScrollArea className=" b-2 px-16 h-80 mr-20">
                     {songs.map((song: any) => (
                         <div key={song._id}>

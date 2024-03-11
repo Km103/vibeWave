@@ -95,7 +95,7 @@ const updateAllAlbumSongs = asyncWrapper(async (req, res) => {
 });
 
 const getAlbum = asyncWrapper(async (req, res) => {
-    const id = req.query.id;
+    const id = req.params.ID;
 
     const album = await Album.aggregate([
         {

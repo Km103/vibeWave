@@ -13,8 +13,8 @@ const router = Router();
 
 // router.route("/updateAll").post(updateAllArtists);
 // router.route("/deleteAll").post(deleteAllArtists);
-// router.route("/updateAllSongs").post(updateAllArtistSongs);
-// router.route("/deleteAllSongs").post(deleteAllArtistsSongs);
+//router.route("/updateAllSongs").post(updateAllArtistSongs);
+//router.route("/deleteAllSongs").post(deleteAllArtistsSongs);
 //router.route("/updateAllFollowers").post(updateAllArtistsFollowers);
 
 // router.route("/top").get(getTopArtists);

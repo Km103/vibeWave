@@ -29,10 +29,10 @@ export default function Home() {
         return <div>Loading...</div>;
     }
     return (
-        <div className="ml-[14%] flex flex-col mb-20 px-8 mt-8 py-4">
+        <div className="ml-[14%]  flex flex-col mb-20 px-8  py-4">
             {homeData?.topArtists && (
                 <div>
-                    <div className="text-3xl font-semibold py-4 ">
+                    <div className="text-3xl mt-24 font-semibold py-4 ">
                         Top Artists
                     </div>
                     <div className="flex flex-wrap gap-y-8 gap-x-8 items-center h-[25%] ">

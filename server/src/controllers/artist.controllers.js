@@ -9,7 +9,6 @@ import { uploadSongToDb } from "./song.controller.js";
 import { collectAllArtistSongs } from "../utils/ArtistSongsQuery.js";
 import mongoose from "mongoose";
 import { getArtistFollowers } from "../utils/ArtistSongsQuery.js";
-import { set } from "mongoose";
 
 const createArtist = asyncWrapper(async (req, res) => {
     const { name, image } = req.body;
@@ -93,8 +92,8 @@ const uploadArtistSongs = async (artist) => {
 };
 
 const updateAllArtistSongs = asyncWrapper(async (req, res) => {
-    const artists = await Artist.find();
-    // console.log(artists.length);
+    const artists = await Artist.find({});
+    console.log(artists.length);
     artists.forEach(async (artist) => {
         await uploadArtistSongs(artist);
     });

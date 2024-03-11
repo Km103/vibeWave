@@ -9,7 +9,10 @@ import SearchBar from "./SearchBar";
 
 function Header() {
     return (
-        <header className="flex z-0  flex-row w-screen justify-between items-center border-b-2  h-24 px-8">
+        <header
+            className="flex z-0 fixed   flex-row w-screen justify-between
+                   items-center border-b-2  h-24 px-8 backdrop-blur-md"
+        >
             <div className="flex items-center">
                 <Link href="/" className="flex items-center">
                     <div className="text-5xl px-2">
