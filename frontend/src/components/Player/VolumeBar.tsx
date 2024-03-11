@@ -1,17 +1,15 @@
 import React from "react";
 
-function VolumeBar({ currentSong }: any) {
+function VolumeBar({ volume, setVolume }: any) {
     return (
-        <div>
+        <div className="items-center">
             <input
                 type="range"
                 min={0}
-                max={currentSong.duration}
-                value={currentSong.currentTime}
-                onChange={() => {
-                    console.log("change");
-                }}
-                className="h-0.5  bg-blue-600"
+                max={100}
+                value={volume}
+                onChange={(e) => setVolume(e.target.value)}
+                className="h-1 w-24 accent-primary "
             />
         </div>
     );

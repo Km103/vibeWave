@@ -10,7 +10,7 @@ import Image from "next/image";
 import ProgressBar from "./ProgressBar";
 import Controls from "./Controls";
 import VolumeBar from "./VolumeBar";
-
+import { FaVolumeHigh } from "react-icons/fa6";
 interface currentSong {
     progress: number;
     currentTime: number;
@@ -30,6 +30,8 @@ function Player() {
     const [currentSong, setCurrentSong] = useState<currentSong>(
         {} as currentSong
     );
+    const [volume, setVolume] = useState(50);
+
     useEffect(() => {
         if (isPlaying) {
             audioElem?.current?.play();
@@ -48,6 +50,12 @@ function Player() {
             setCurrentSong(activeSong);
         }
     }, [activeSong, dispatch]);
+
+    useEffect(() => {
+        if (audioElem.current) {
+            audioElem.current.volume = volume / 100;
+        }
+    }, [volume]);
 
     function onPlaying() {
         const duration = audioElem?.current?.duration ?? 0;
@@ -88,7 +96,7 @@ function Player() {
                 />
             )}
             <div className=" flex flex-row items-center justify-between w-screen">
-                <div className="flex flex-row basis-1/4 items-center justify-center">
+                <div className="flex flex-row basis-3/12 items-center justify-center">
                     <Image
                         src={activeSong.image}
                         alt="song"
@@ -101,9 +109,9 @@ function Player() {
                     </h1>
                 </div>
 
-                <div className="flex flex-row items-center justify-evenly basis-2/4">
+                <div className="flex flex-row items-center justify-start basis-5/12">
                     {currentSong.currentTime && (
-                        <div className="basis-1/6 text-center">
+                        <div className="basis-1/6 text-end">
                             {Math.floor(currentSong.currentTime / 60)}:
                             {Math.floor(currentSong.currentTime % 60) < 10
                                 ? `0${Math.floor(currentSong.currentTime % 60)}`
@@ -119,7 +127,7 @@ function Player() {
                         )}
                     </div>
 
-                    <div className="basis-1/6 text-center">
+                    <div className="basis-1/6 text-start">
                         {Math.floor(activeSong.duration / 60)}:
                         {Math.floor(activeSong.duration % 60) < 10
                             ? `0${Math.floor(activeSong.duration % 60)}`
@@ -127,8 +135,12 @@ function Player() {
                     </div>
                 </div>
 
-                <div className="basis-1/4">
+                <div className="basis-2/12 flex flex-row items-center justify-center">
                     <Controls isPlaying={isPlaying} dispatch={dispatch} />
+                </div>
+                <div className="basis-2/12 flex items-center gap-x-4 justify-center">
+                    <FaVolumeHigh className="text-3xl" />
+                    <VolumeBar volume={volume} setVolume={setVolume} />
                 </div>
             </div>
         </div>
