@@ -28,7 +28,7 @@ function Page({ params }: { params: { id: string } }) {
                 <div className="mt-24">
                     <div className="flex flex-row  items-center justify-start">
                         <Image
-                            src={artist.image}
+                            src={artist?.image}
                             alt="artist"
                             width="250"
                             height="250"

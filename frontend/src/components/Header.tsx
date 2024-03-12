@@ -1,9 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { PiWaveformThin } from "react-icons/pi";
 import { PiWaveformDuotone } from "react-icons/pi";
-
-import { GiHamburgerMenu } from "react-icons/gi";
 import { Button } from "./ui/button";
 import SearchBar from "./SearchBar";
 
