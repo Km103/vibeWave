@@ -1,9 +1,10 @@
 import axios from "axios";
+const URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
 
 const searchSongs = async (query: string, page: Number = 1) => {
     query = query.replace(/%20/g, "+");
     const response = await axios.get(
-        `/api/search/song?q=${query}&page=${page}`
+        `${URL}/search/song?q=${query}&page=${page}`
     );
     return response.data.data;
 };
@@ -11,7 +12,7 @@ const searchSongs = async (query: string, page: Number = 1) => {
 const searchArtists = async (query: string, page: Number = 1) => {
     query = query.replace(/%20/g, "+");
     const response = await axios.get(
-        `/api/search/artist?q=${query}&page=${page}`
+        `${URL}/search/artist?q=${query}&page=${page}`
     );
     return response.data.data;
 };
@@ -19,14 +20,14 @@ const searchArtists = async (query: string, page: Number = 1) => {
 const searchAlbums = async (query: string, page: Number = 1) => {
     query = query.replace(/%20/g, "+");
     const response = await axios.get(
-        `/api/search/album?q=${query}&page=${page}`
+        `${URL}/search/album?q=${query}&page=${page}`
     );
     return response.data.data;
 };
 
 const searchAllData = async (query: string, page: Number = 1) => {
     query = query.replace(/%20/g, "+");
-    const response = await axios.get(`/api/search?q=${query}&page=${page}`);
+    const response = await axios.get(`${URL}/search?q=${query}&page=${page}`);
     return response.data.data;
 };
 
