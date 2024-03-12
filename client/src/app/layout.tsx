@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import Player from "@/components/Player/Player";
 import ReduxProvider from "@/redux/Provider";
 import "./favicon.ico";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const fontSans = FontSans({
     subsets: ["latin"],
@@ -33,6 +34,7 @@ export default function RootLayout({
                         fontSans.variable
                     )}
                 >
+                    <GoogleAnalytics gaId="G-EH2FHFYTR4" />
                     <Header />
                     <Navbar />
                     {children}
