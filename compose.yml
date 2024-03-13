@@ -5,8 +5,8 @@ services:
         container_name: client
         ports:
             - "3000:3000"
-        env_file:
-            - ./client/.env.local
+        environment:
+            - NEXT_PUBLIC_API_URL=https://vibewave.live/api
     server:
         build: ./server
         container_name: server
