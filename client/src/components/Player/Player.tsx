@@ -32,7 +32,7 @@ function Player() {
     const [currentSong, setCurrentSong] = useState<currentSong>(
         {} as currentSong
     );
-    const [volume, setVolume] = useState(50);
+    const [volume, setVolume] = useState(100);
 
     useEffect(() => {
         if (isPlaying) {
